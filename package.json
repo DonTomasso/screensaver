@@ -1,0 +1,28 @@
+{
+  "name": "screensaver",
+  "version": "1.0.0",
+  "description": "Don Tomasso screensaver",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "html-minifier src.html --collapse-inline-tag-whitespace --minify-css --minify-js --use-short-doctype --collapse-whitespace -o index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonTomasso/screensaver.git"
+  },
+  "keywords": [
+    "Screensaver",
+    "svg",
+    "animation"
+  ],
+  "author": "DonTomasso",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonTomasso/screensaver/issues"
+  },
+  "homepage": "https://dontomasso.com/screensaver/",
+  "devDependencies": {
+    "html-minifier": "3.5.5"
+  }
+}
