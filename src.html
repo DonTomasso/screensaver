@@ -3,34 +3,36 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="initial-scale=1.0, width=device-width">
-        <style>body {
-            background: #ccc;
-        }
-        .dontomasso {
-            width: 100%;
-            max-width: 160px;
-            height: 250px;
-            margin: 3rem auto;
-            transition: all 3s ease;
-            fill: #000;
-            position: relative;
-            top: calc(50% - 130px);
-            transform: translate3d(0,0,0);
-        }
-        svg {
-            transform: scale(.45);
-            transform-origin: 0 0 0;
-            width: 352px;
-            height: 525px;
-        }
-        svg path {
-            fill: #000;
-        }
-        #right-eye,
-        #left-eye {
-            transition: all 1s ease;
-            transform: translate3d(0,0,0);
-        }</style>
+        <style>
+            body {
+                background: #ccc;
+            }
+            .dontomasso {
+                width: 100%;
+                max-width: 160px;
+                height: 250px;
+                margin: 3rem auto;
+                transition: all 3s ease;
+                fill: #000;
+                position: relative;
+                top: calc(50% - 130px);
+                transform: translate3d(0,0,0);
+            }
+            svg {
+                transform: scale(.45);
+                transform-origin: 0 0 0;
+                width: 352px;
+                height: 525px;
+            }
+            svg path {
+                fill: #000;
+            }
+            #right-eye,
+            #left-eye {
+                transition: all 1s ease;
+                transform: translate3d(0,0,0);
+            }
+        </style>
     </head>
     <body>
         <div id="dontomasso" class="dontomasso" style="transform: translate3d(604.5px,37px, 0);">
@@ -54,55 +56,62 @@
             </div>
         </div>
         <script>
-            var positions = document.body.getBoundingClientRect();
-            var dontomassoDimension = document.getElementById('dontomasso').getBoundingClientRect();
-            var bodyWidth = positions.width;
-            var bodyHeight = positions.height;
-            function getRandom(maxValue) {
-                var randomPosition = Math.floor(Math.random() * maxValue);
-                return Math.floor(Math.random() * 2) == 1 ? randomPosition : -randomPosition;
-            }
-            var rightLeft = 0;
-            function calcAx(currPosition, size) {
-                var result = Math.round((currPosition - size / 2) / 15);
-                var maxValue = 20;
-                if (result < -maxValue) {
-                    return -maxValue;
-                } else if (result > maxValue) {
-                    return maxValue;
-                } else {
+            (function (doc) {
+                var positions           = doc.body.getBoundingClientRect(),
+                    dontomassoDimension = doc.getElementById('dontomasso').getBoundingClientRect(),
+                    bodyWidth           = positions.width,
+                    bodyHeight          = positions.height;
+
+                function getRandom(maxValue) {
+                    var randomPosition = Math.floor(Math.random() * maxValue);
+                    
+                    return Math.floor(Math.random() * 2) == 1 ? 
+                        randomPosition : 
+                        -randomPosition;
+                }
+
+                function calcAx(currPosition, size) {
+                    var result      = Math.round((currPosition - size / 2) / 15),
+                        maxValue    = 20;
+                    
+                    if (result < -maxValue) {
+                        return -maxValue;
+                    } else if (result > maxValue) {
+                        return maxValue;
+                    }
+                    
                     return result;
                 }
-            }
-            function setTranslate(elementId, x, y) {
-                document.getElementById(elementId).setAttribute('style', 'transform: translate3d(' + x + 'px, ' + y + 'px,0);');
-            }
-            function setPosition(elementId, x, y) {
-                document.getElementById(elementId).setAttribute('style', 'transform: translate3d(' + x + 'px,' + y + 'px, 0);');
-            }
-            function setRotate(elementId, x, y) {
-                document.getElementById(elementId).setAttribute('style', 'transform: rotateX(' + -x + 'deg) rotateZ(' + -x / 5 + 'deg);');
-            }
-            function screensaverInit() {
-                var maxX = bodyWidth;
-                var maxY = bodyHeight;
-                var randomX = getRandom(maxX) / 2;
-                var randomY = getRandom(maxY) / 2;
-                if (randomX > (maxX - dontomassoDimension.width) / 2) {
-                    randomX = (maxX - dontomassoDimension.width) / 2;
-                } else if (randomY > (maxY - dontomassoDimension.height) / 2) {
-                    randomY = (maxY - dontomassoDimension.height) / 2;
+
+                function setTransform(elementId, x, y) {
+                    doc.getElementById(elementId)
+                        .setAttribute('style', 'transform: translate3d(' + x + 'px,' + y + 'px,0);');
                 }
-                var x = calcAx(randomX, positions.width / 2);
-                var y = calcAx(randomY, positions.height / 2);
-                setTranslate('right-eye', x, y);
-                setTranslate('left-eye', x, y);
-                setPosition('dontomasso', randomX, randomY);
-                setTimeout(function () {
-                    screensaverInit();
-                }, 5000);
-            }
-            screensaverInit();
+                function screensaverInit() {
+                    var maxX    = bodyWidth,
+                        maxY    = bodyHeight,
+                        randomX = getRandom(maxX) / 2,
+                        randomY = getRandom(maxY) / 2,
+                        x, y;
+
+                    if (randomX > (maxX - dontomassoDimension.width) / 2) {
+                        randomX = (maxX - dontomassoDimension.width) / 2;
+                    } else if (randomY > (maxY - dontomassoDimension.height) / 2) {
+                        randomY = (maxY - dontomassoDimension.height) / 2;
+                    }
+
+                    x = calcAx(randomX, positions.width / 2),
+                    y = calcAx(randomY, positions.height / 2);
+
+                    setTransform('right-eye', x, y);
+                    setTransform('left-eye', x, y);
+                    setTransform('dontomasso', randomX, randomY);
+
+                    setTimeout(screensaverInit, 5000);
+                }
+                
+                screensaverInit();
+            }(document));
         </script>
     </body>
 </html>
