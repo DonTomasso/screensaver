@@ -5,7 +5,10 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "html-minifier src.html --collapse-inline-tag-whitespace --minify-css --minify-js --use-short-doctype --collapse-whitespace -o index.html"
+    "clean": "rm -rf build",
+    "createBuildDir": "mkdir -p build",
+    "minifyHtml": "html-minifier src.html --collapse-inline-tag-whitespace --minify-css --minify-js --use-short-doctype --collapse-whitespace -o build/index.html",
+    "build": "npm run clean && npm run createBuildDir && npm run minifyHtml"
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,7 @@
     "url": "https://github.com/DonTomasso/screensaver/issues"
   },
   "homepage": "https://dontomasso.com/screensaver/",
-  "devDependencies": {
+  "dependencies": {
     "html-minifier": "3.5.5"
   }
 }
