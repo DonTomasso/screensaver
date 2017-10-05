@@ -9,7 +9,7 @@
     "createBuildDir": "mkdir -p build",
     "minifyHtml": "html-minifier src.html --collapse-inline-tag-whitespace --minify-css --minify-js --use-short-doctype --collapse-whitespace -o build/index.html",
     "copyAssets": "cp ./assets/* ./build",
-    "build": "npm run clean && npm run createBuildDir && npm run minifyHtml && copyAssets"
+    "build": "npm run clean && npm run createBuildDir && npm run minifyHtml && npm run copyAssets"
   },
   "repository": {
     "type": "git",
