@@ -7,6 +7,11 @@
             body {
                 background: #ccc;
                 filter: contrast(41);
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
             }
             #jowl, #hair {
                 filter: drop-shadow(-5px -5px 5px #A07602);
@@ -115,7 +120,7 @@
                     date                = new Date(),
                     day                 = date.getDate(),
                     month               = date.getMonth();
-
+                console.log(positions);
                 function holidaySpecial() {
                     if((month == 11 && day == 31) ||
                         (month == 9 && day == 25)) {
